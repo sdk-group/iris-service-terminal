@@ -14,11 +14,51 @@ class Terminal {
 	}
 
 	//API
-	actionServices({
-		query
+	actionServiceGroups({
+		user_id,
+		user_type = "SystemEntity",
+			query
 	}) {
-		console.log("TODO: GET ENTRIES", query);
-		return Promise.resolve(true);
+		return this.emitter.addTask('agent', {
+				_action: 'available-workstations',
+				user_id,
+				user_type: "SystemEntity"
+			})
+			.then((res) => {
+				console.log("DEF WS", res);
+				return this.iris.getServiceTree(query);
+			})
+	}
+
+	actionBootstrap({
+		workstation,
+		user_id,
+		user_type = "SystemEntity"
+	}) {
+		return this.emitter.addTask('agent', {
+				_action: 'default-workstation',
+				user_id,
+				user_type
+			})
+			.then((res) => {
+				let term = _.find(res, (val) => (val.device_type === 'terminal'));
+				return Promise.props({
+					views: this.iris.getServiceTree({
+						keys: term.bound_service_groups,
+						options: {}
+					}),
+					ticket_prefix: this.iris.getEntry("Organization", {
+							keys: term.attached_to
+						})
+						.then((res) => {
+							return res[term.attached_to].pin_code_prefix;
+						})
+				})
+			})
+			.then((res) => {
+				console.log("BTS RES", res);
+				return res;
+			})
 	}
 
 }
