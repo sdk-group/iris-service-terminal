@@ -35,12 +35,15 @@ class Terminal {
 		user_id,
 		user_type = "SystemEntity"
 	}) {
-		return this.emitter.addTask('agent', {
-				_action: 'default-workstation',
+		console.log("BOOTSTRAP", workstation, user_id);
+		return this.emitter.addTask('workstation', {
+				_action: 'by-id',
 				user_id,
-				user_type
+				user_type,
+				workstation
 			})
 			.then((res) => {
+				console.log("BOOTSTRAP WS", res, workstation, user_id);
 				let term = _.find(res, (val) => (val.device_type === 'terminal'));
 				return Promise.props({
 					views: this.iris.getServiceTree({
@@ -51,12 +54,14 @@ class Terminal {
 							keys: term.attached_to
 						})
 						.then((res) => {
+							console.log("OFFICE", res);
 							return res[term.attached_to].pin_code_prefix;
 						}),
 					ws: this.emitter.addTask('workstation', {
 						_action: 'occupy',
 						user_id,
-						user_type
+						user_type,
+						workstation
 					}),
 					fields_model: this.iris.getFieldsModel()
 				});
