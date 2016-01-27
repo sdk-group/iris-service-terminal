@@ -15,6 +15,7 @@ class Terminal {
 
 	//API
 	actionServiceGroups({
+		workstation,
 		user_id,
 		user_type = "SystemEntity",
 			query
@@ -25,7 +26,6 @@ class Terminal {
 				user_type: "SystemEntity"
 			})
 			.then((res) => {
-				console.log("DEF WS", res);
 				return this.iris.getServiceTree(query);
 			})
 	}
@@ -52,15 +52,16 @@ class Terminal {
 						})
 						.then((res) => {
 							return res[term.attached_to].pin_code_prefix;
-						})
-				})
-			})
-			.then((res) => {
-				console.log("BTS RES", res);
-				return res;
+						}),
+					ws: this.emitter.addTask('workstation', {
+						_action: 'occupy',
+						user_id,
+						user_type
+					}),
+					fields_model: this.iris.getFieldsModel()
+				});
 			})
 	}
-
 }
 
 module.exports = Terminal;
