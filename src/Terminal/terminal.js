@@ -61,11 +61,14 @@ class Terminal {
 					ticket_prefix: org_data.pin_code_prefix,
 					timezone: org_data.org_timezone,
 					ws: this.emitter.addTask('workstation', {
-						_action: 'occupy',
-						user_id,
-						user_type,
-						workstation
-					}),
+							_action: 'occupy',
+							user_id,
+							user_type,
+							workstation
+						})
+						.then((res) => {
+							return res.workstation;
+						}),
 					fields_model: this.iris.getFieldsModel()
 				});
 			})
