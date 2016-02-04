@@ -18,7 +18,7 @@ class Terminal {
 		workstation,
 		user_id,
 		user_type = "SystemEntity",
-			query
+		query
 	}) {
 		return this.emitter.addTask('agent', {
 				_action: 'available-workstations',
@@ -72,6 +72,15 @@ class Terminal {
 					fields_model: this.iris.getFieldsModel()
 				});
 			})
+	}
+
+	actionReady({
+		user_id,
+		workstation
+	}) {
+		return Promise.resolve({
+			success: true
+		});
 	}
 }
 
