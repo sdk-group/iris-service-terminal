@@ -72,6 +72,9 @@ class Terminal {
 					fields_model: this.iris.getFieldsModel()
 				});
 			})
+			.catch(err => {
+				console.log("TERM BTSTRP ERR", err.stack);
+			})
 	}
 
 	actionReady({
