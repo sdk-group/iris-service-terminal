@@ -44,22 +44,12 @@ class Terminal {
 			})
 			.then((res) => {
 				term = _.find(res, (val) => (val.device_type === 'terminal'));
-				return this.iris.getOrganizationChain({
-					keys: term.attached_to
-				});
-			})
-			.then((res) => {
-				let org_data = _.reduce(_.orderBy(_.keys(res), _.parseInt, 'desc'), (acc, val) => {
-					acc = _.merge(acc, res[val]);
-					return acc;
-				}, {});
+
 				return Promise.props({
 					views: this.iris.getServiceTree({
 						keys: term.bound_service_groups,
 						options: {}
 					}),
-					ticket_prefix: org_data.pin_code_prefix,
-					timezone: org_data.org_timezone,
 					ws: this.emitter.addTask('workstation', {
 							_action: 'occupy',
 							user_id,
