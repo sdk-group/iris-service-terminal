@@ -1,7 +1,8 @@
 'use strict'
 
 let emitter = require("global-queue");
-let ServiceApi = require('resource-management-framework').ServiceApi;
+let ServiceApi = require('resource-management-framework')
+	.ServiceApi;
 
 class Terminal {
 	constructor() {
