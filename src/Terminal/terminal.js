@@ -60,7 +60,7 @@ class Terminal {
 						.then((res) => {
 							return res.workstation;
 						}),
-					fields_model: this.iris.getFieldsModel()
+					fields_model: this.iris.getUserInfoFields()
 				});
 			})
 			.catch(err => {
