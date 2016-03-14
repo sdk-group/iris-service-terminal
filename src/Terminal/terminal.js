@@ -51,7 +51,7 @@ class Terminal {
 						keys: term.bound_service_groups,
 						options: {}
 					}),
-					ws: this.emitter.addTask('workstation', {
+					workstation: this.emitter.addTask('workstation', {
 							_action: 'occupy',
 							user_id,
 							user_type,
