@@ -72,9 +72,31 @@ class Terminal {
 		user_id,
 		workstation
 	}) {
-		return Promise.resolve({
-			success: true
-		});
+		// this.emitter.emit('taskrunner.add.task', {
+		// 	now: 0,
+		// 	time: 0,
+		// 	task_name: "",
+		// 	module_name: "prebook",
+		// 	task_id: "warmup-days-cache",
+		// 	task_type: "add-task",
+		// 	params: {
+		// 		_action: "warmup-days-cache",
+		// 		workstation,
+		// 		start: 0,
+		// 		end: 30
+		// 	}
+		// });
+		return this.emitter.addTask('prebook', {
+				_action: 'warmup-days-cache',
+				workstation,
+				start: 0,
+				end: 30
+			})
+			.then(() => {
+				return Promise.resolve({
+					success: true
+				});
+			})
 	}
 }
 
