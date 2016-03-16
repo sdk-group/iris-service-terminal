@@ -9,9 +9,10 @@ class Terminal {
 		this.emitter = emitter;
 	}
 
-	init() {
+	init(cfg) {
 		this.iris = new ServiceApi();
 		this.iris.initContent();
+		this.warmup_prebook_cache_days = cfg.warmup_prebook_cache_days || 30;
 	}
 
 	//API
@@ -90,7 +91,7 @@ class Terminal {
 				_action: 'warmup-days-cache',
 				workstation,
 				start: 0,
-				end: 30
+				end: this.warmup_prebook_cache_days
 			})
 			.then(() => {
 				return Promise.resolve({
