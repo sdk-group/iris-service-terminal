@@ -63,10 +63,7 @@ class Terminal {
 						}),
 					fields_model: this.iris.getUserInfoFields()
 				});
-			})
-			.catch(err => {
-				console.log("TERM BTSTRP ERR", err.stack);
-			})
+			});
 	}
 
 	actionReady({
