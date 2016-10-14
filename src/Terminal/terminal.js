@@ -53,14 +53,19 @@ class Terminal {
 						options: {}
 					}),
 					workstation: this.emitter.addTask('workstation', {
-							_action: 'occupy',
-							user_id,
-							user_type,
-							workstation
+							_action: 'by-id',
+							workstation: workstation
 						})
-						.then((res) => {
-							return res.workstation;
-						}),
+						.then(res => res[workstation]),
+					// this.emitter.addTask('workstation', {
+					// 		_action: 'occupy',
+					// 		user_id,
+					// 		user_type,
+					// 		workstation
+					// 	})
+					// 	.then((res) => {
+					// 		return res.workstation;
+					// 	}),
 					fields_model: this.iris.getUserInfoFields()
 				});
 			});
