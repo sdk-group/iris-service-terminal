@@ -9,6 +9,7 @@ let tasks = [];
 
 module.exports = {
 	module: require('./terminal.js'),
+	name: 'terminal',
 	permissions: [],
 	exposed: true,
 	tasks: tasks,
